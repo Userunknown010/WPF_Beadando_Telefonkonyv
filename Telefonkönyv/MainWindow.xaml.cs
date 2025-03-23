@@ -1,19 +1,8 @@
-﻿using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Telefonkönyv
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
@@ -23,7 +12,6 @@ namespace Telefonkönyv
 
         private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -31,5 +19,18 @@ namespace Telefonkönyv
             Felvetel addwindow = new Felvetel();
             addwindow.Show();
         }
+
+        private void LoginMenuButton_Click(object sender, RoutedEventArgs e)
+        {
+            LoginWindow loginWindow = new LoginWindow();
+            loginWindow.Show();
+        }
+        private void RegistrationMenuButton_Click(object sender, RoutedEventArgs e)
+        {
+            RegistrationWindow regWindow = new RegistrationWindow();
+            regWindow.ShowDialog();
+        }
+
+
     }
 }

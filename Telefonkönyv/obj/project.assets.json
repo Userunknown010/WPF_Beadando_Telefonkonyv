@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\WMatheist\\Source\\Repos\\WPF_Beadando_Telefonkonyv\\Telefonkönyv\\Telefonkönyv.csproj",
+      "projectUniqueName": "C:\\Users\\WMatheist\\source\\repos\\Userunknown010\\WPF_Beadando_Telefonkonyv\\Telefonkönyv\\Telefonkönyv.csproj",
       "projectName": "Telefonkönyv",
-      "projectPath": "C:\\Users\\WMatheist\\Source\\Repos\\WPF_Beadando_Telefonkonyv\\Telefonkönyv\\Telefonkönyv.csproj",
+      "projectPath": "C:\\Users\\WMatheist\\source\\repos\\Userunknown010\\WPF_Beadando_Telefonkonyv\\Telefonkönyv\\Telefonkönyv.csproj",
       "packagesPath": "C:\\Users\\WMatheist\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\WMatheist\\Source\\Repos\\WPF_Beadando_Telefonkonyv\\Telefonkönyv\\obj\\",
+      "outputPath": "C:\\Users\\WMatheist\\source\\repos\\Userunknown010\\WPF_Beadando_Telefonkonyv\\Telefonkönyv\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "D:\\Softwares\\Microsoft Visual Studio\\Shared\\NuGetPackages"
