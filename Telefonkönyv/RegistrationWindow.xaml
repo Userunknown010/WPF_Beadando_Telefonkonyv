@@ -1,22 +1,28 @@
 <Window x:Class="Telefonkönyv.RegistrationWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Regisztráció" Height="250" Width="400">
+        Title="Regisztráció" Height="270" Width="400">
     <Grid Margin="10">
-        <StackPanel>
-            <TextBlock Text="Felhasználónév:"/>
-            <TextBox x:Name="UsernameTextBox" Width="200"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="270"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
 
-            <TextBlock Text="Jelszó:" Margin="0,10,0,0"/>
-            <PasswordBox x:Name="PasswordBox" Width="200"/>
+        <Label Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Felhasználónév:"/>
+        <TextBox Grid.Row="0" Grid.Column="1"  HorizontalAlignment="Center" VerticalAlignment="Center"  x:Name="UsernameTextBox" Width="200"/>
 
-            <TextBlock Text="Jelszó újra:" Margin="0,10,0,0"/>
-            <PasswordBox x:Name="PasswordBoxConfirm" Width="200"/>
+        <Label Grid.Row="1"  HorizontalAlignment="Center" VerticalAlignment="Center"  Content="Jelszó:"/>
+        <PasswordBox Grid.Row="1" Grid.Column="1"  HorizontalAlignment="Center" VerticalAlignment="Center"  x:Name="PasswordBox" Width="200"/>
 
-            <Button Content="Regisztróció" 
-                    Width="100" 
-                    Margin="0,10,0,0"
-                    Click="RegisterButton_Click"/>
-        </StackPanel>
+        <Label Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Jelszó újra:"/>
+        <PasswordBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="PasswordBoxConfirm" Width="200"/>
+
+        <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Content="Regisztráció" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Padding="5" Margin="0,10,0,0"  Click="RegisterButton_Click"/>
     </Grid>
 </Window>

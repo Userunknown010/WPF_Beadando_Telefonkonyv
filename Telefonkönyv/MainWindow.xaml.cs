@@ -17,13 +17,13 @@ namespace Telefonkönyv
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Felvetel addwindow = new Felvetel();
-            addwindow.Show();
+            addwindow.ShowDialog();
         }
 
         private void LoginMenuButton_Click(object sender, RoutedEventArgs e)
         {
             LoginWindow loginWindow = new LoginWindow();
-            loginWindow.Show();
+            loginWindow.ShowDialog();
         }
         private void RegistrationMenuButton_Click(object sender, RoutedEventArgs e)
         {
