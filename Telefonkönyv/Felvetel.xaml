@@ -39,9 +39,9 @@
             <TextBox x:Name="telefonszambe" Grid.Row="2" Grid.Column="1" BorderBrush="Black" Margin="5" BorderThickness="2" VerticalContentAlignment="Center"/>
 
             <!-- Hozzzáad gomb -->
-            <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,6,0">
+            <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,6,0">
                 <Button x:Name="Hozzaadgomb" Width="100" Height="30" Click="Hozzaadgomb_Click" Content="Hozzáadás" Margin="0,0,110,0"/>
-                <Button x:Name="Elvetgomb" Width="50" Height="30" Click="Elvetgomb_Click" Content="Elvetés"/>
+                <Button x:Name="Elvetgomb" Width="100" Height="30" Click="Elvetgomb_Click" Content="Elvetés"/>
             </StackPanel>
         </Grid>
     </Grid>
