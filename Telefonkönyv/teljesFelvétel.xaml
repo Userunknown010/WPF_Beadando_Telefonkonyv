@@ -1,0 +1,55 @@
+﻿<Window x:Class="Telefonkönyv.teljesFelvétel"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Telefonkönyv"
+        mc:Ignorable="d"
+        Title="teljesFelvétel" Height="350" Width="400">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition /><!--Név-->
+            <RowDefinition /><!--becenév-->
+            <RowDefinition /><!--telefonsz-->
+            <RowDefinition /><!--város-->
+            <RowDefinition /><!--email-->
+            <RowDefinition /><!--megjegyzés-->
+            <RowDefinition /><!--kép-->
+            <RowDefinition /><!--gomb-->
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30*" />
+            <ColumnDefinition Width="70*" />
+        </Grid.ColumnDefinitions>
+        
+        <TextBlock Grid.Row="0" Grid.Column="0" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"> 
+        <Run Text="Név" />
+        <Run Text="*" Foreground="Red" ToolTip="Kötelező mező" />
+        <Run Text=":" />
+        </TextBlock>
+        <Label Content="Becenév:" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"/>
+        <TextBlock Grid.Row="2" Grid.Column="0" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"> 
+        <Run Text="Telefonszám"/>
+        <Run Text="*" Foreground="Red" ToolTip="Kötelező mező" />
+        <Run Text=":" />
+        </TextBlock>
+        <TextBlock Grid.Row="3" Grid.Column="0" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"> 
+        <Run Text="Város" />
+        <Run Text="*" Foreground="Red" ToolTip="Kötelező mező" />
+        <Run Text=":" />
+        </TextBlock>
+        <Label Content="Email:" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"/>
+        <Label Content="Megjegyzés:" Grid.Row="5" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"/>
+        <Label Content="Kép:" Grid.Row="6" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"/>
+        <Button x:Name="Hozzaadgomb" Width="100" Height="30" Click="Hozzaadgomb_Click" Content="Hozzáadás" HorizontalAlignment="Center"  VerticalAlignment="Center" Grid.Row="7" Grid.ColumnSpan="2"/>
+
+        <Button x:Name="UploadPicture" Content="Kép feltöltés" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center" Click="UploadPicture_Click"/>
+
+        <TextBox x:Name="nevbe" Grid.Row="0" Grid.Column="1"  Margin="5"  VerticalContentAlignment="Center"/>
+        <TextBox x:Name="becenevbe" Grid.Row="1" Grid.Column="1"  Margin="5"  VerticalContentAlignment="Center"/>
+        <TextBox x:Name="telefonszambe" Grid.Row="2" Grid.Column="1"  Margin="5"  VerticalContentAlignment="Center"/>
+        <TextBox x:Name="varosbe" Grid.Row="3" Grid.Column="1"  Margin="5"  VerticalContentAlignment="Center"/>
+        <TextBox x:Name="emailbe" Grid.Row="4" Grid.Column="1"  Margin="5"  VerticalContentAlignment="Center"/>
+        <TextBox x:Name="megjegyzesbe" Grid.Row="5" Grid.Column="1"  Margin="5"  VerticalContentAlignment="Center"/>
+    </Grid>
+</Window>

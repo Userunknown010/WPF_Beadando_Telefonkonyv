@@ -10,6 +10,9 @@
     <Compile Update="Felvetel.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="teljesFelvétel.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Felvetel.xaml">

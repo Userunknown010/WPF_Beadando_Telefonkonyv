@@ -62,5 +62,11 @@ namespace Telefonkönyv
                 sideTel.Text = selected.Phone;
             }
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            teljesFelvétel teljesFelvételWindow = new teljesFelvétel();
+            teljesFelvételWindow.ShowDialog();
+        }
     }
 }
