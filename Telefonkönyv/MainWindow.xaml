@@ -9,12 +9,13 @@
     <Grid>
         <Grid Margin="10">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="590"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="590*"/>
+                <ColumnDefinition Width="270*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="60"/>
             </Grid.RowDefinitions>
 
             <TextBox x:Name="SearchBox" 
@@ -30,7 +31,9 @@
                       Grid.Row="1" 
                       Grid.Column="0" 
                       HorizontalAlignment="Stretch" 
-                      VerticalAlignment="Stretch">
+                      VerticalAlignment="Stretch"
+                      SelectionChanged="PhoneBookList_SelectionChanged">
+                       
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Név" DisplayMemberBinding="{Binding Name}" Width="230"/>
@@ -41,12 +44,12 @@
             </ListView>
 
             <Button Content="Új bejegyzés felvétele" 
-                    Grid.Row="1" 
-                    Grid.Column="1" 
+                    Grid.Row="2" 
+                    Grid.Column="0" 
                     Width="180" 
                     Height="40" 
-                    HorizontalAlignment="Stretch" 
-                    VerticalAlignment="Bottom"
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="center"
                     Margin="0,0,0,10" 
                     Click="Button_Click"/>
 
@@ -73,6 +76,76 @@
                         Margin="0,0,10,0" 
                         Grid.Column="1"
                         Click="LoginMenuButton_Click"/>
+            </Grid>
+
+            <Grid Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30*"/>
+                    <ColumnDefinition Width="70*"/>
+                </Grid.ColumnDefinitions>
+                <Image  Source="pack://application:,,,/images/placeholder.png"
+                        HorizontalAlignment="Center"
+                        Grid.ColumnSpan="2"
+                        VerticalAlignment="Center" 
+                        Grid.Row="0"/>
+
+                <Label Content="Név:" 
+                       FontSize="16" 
+                       FontWeight="Bold" 
+                       HorizontalAlignment="left" 
+                       VerticalAlignment="top" 
+                       Grid.Row="1"
+                       Grid.Column="0"/>
+                <TextBlock Text="" 
+                           FontSize="16" 
+                           FontWeight="Bold" 
+                           x:Name="sideName"
+                           HorizontalAlignment="center" 
+                           VerticalAlignment="top" 
+                           Grid.Row="1"
+                           Grid.Column="1"/>
+
+                <Label Content="Város:" 
+                       FontSize="16" 
+                       FontWeight="Bold" 
+                       HorizontalAlignment="left" 
+                       VerticalAlignment="Center" 
+                       Grid.Row="1"
+                       Grid.Column="0"/>
+                <TextBlock Text="" 
+                           FontSize="16" 
+                           FontWeight="Bold" 
+                           x:Name="sideCity"
+                           HorizontalAlignment="center" 
+                           VerticalAlignment="Center" 
+                           Grid.Row="1"
+                           Grid.Column="1"/>
+
+
+                <Label Content="Tel.::" 
+                        FontSize="16" 
+                        FontWeight="Bold" 
+                        HorizontalAlignment="left" 
+                        VerticalAlignment="Bottom" 
+                        Grid.Row="1"
+                        Grid.Column="0"/>
+                <TextBlock  Text="" 
+                            FontSize="16" 
+                            FontWeight="Bold" 
+                            x:Name="sideTel"
+                            HorizontalAlignment="center" 
+                            VerticalAlignment="Bottom" 
+                            Grid.Row="1"
+                            Grid.Column="1"/>
+
+
             </Grid>
         </Grid>
     </Grid>
