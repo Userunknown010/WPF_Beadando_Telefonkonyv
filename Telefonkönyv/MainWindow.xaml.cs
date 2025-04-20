@@ -81,10 +81,12 @@ namespace Telefonkönyv
             var selected = PhoneBookList.SelectedItem as PhoneBookEntry;
             if (selected != null)
             {
-
                 MódósításWindow módósításWindow = new MódósításWindow(selected);
                 módósításWindow.ShowDialog();
-
+            }
+            else
+            {
+                MessageBox.Show("Kérlek válassz ki egy bejegyzést a módosításhoz.");
             }
         }
     }
