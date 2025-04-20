@@ -51,16 +51,13 @@ namespace Telefonkönyv
 
         private void UploadPicture_Click(object sender, RoutedEventArgs e)
         {
-            // Create an OpenFileDialog
             OpenFileDialog openFileDialog = new OpenFileDialog
             {
                 Filter = "Image files (*.jpg, *.jpeg, *.png, *.bmp)|*.jpg;*.jpeg;*.png;*.bmp"
             };
 
-            // Show the dialog and check if the user selected a file
             if (openFileDialog.ShowDialog() == true)
             {
-                // Load the selected image into the Image control
                 try
                 {
                     BitmapImage bitmap = new BitmapImage(new Uri(openFileDialog.FileName));
@@ -69,7 +66,7 @@ namespace Telefonkönyv
                 catch (Exception)
                 {
 
-                    MessageBox.Show("nem támogatott képet töltöttél fel");
+                    MessageBox.Show("Nem támogatott formátumú képet töltöttél fel!");
                 }
                 
             }

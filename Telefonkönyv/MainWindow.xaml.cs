@@ -9,6 +9,9 @@ namespace Telefonkönyv
         public string Name { get; set; }
         public string City { get; set; }
         public string Phone { get; set; }
+        public string Email { get; set; }
+        public string Note { get; set; }
+        public string Nickname { get; set; }
     }
 
     public partial class MainWindow : Window
@@ -23,9 +26,9 @@ namespace Telefonkönyv
         {
             var phoneBookEntries = new List<PhoneBookEntry>
             {
-                new PhoneBookEntry { Name = "Kiss János", City = "Budapest", Phone = "123456789" },
-                new PhoneBookEntry { Name = "Nagy Anna", City = "Debrecen", Phone = "987654321" },
-                new PhoneBookEntry { Name = "Tóth Péter", City = "Szeged", Phone = "456123789" }
+                new PhoneBookEntry { Name = "Kiss János", City = "Budapest", Phone = "123456789", Nickname = "Jani", Email = "", Note = "asad as da sd as da sd a sd a sd a sd as da  da sd a dsa sd" },
+                new PhoneBookEntry { Name = "Nagy Anna", City = "Debrecen", Phone = "987654321", Nickname = "", Email = "anna@gmail.com", Note = "" },
+                new PhoneBookEntry { Name = "Tóth Péter", City = "Szeged", Phone = "456123789", Nickname = "", Email = "asdasda", Note = "" }
             };
 
             PhoneBookList.ItemsSource = phoneBookEntries;
@@ -57,9 +60,13 @@ namespace Telefonkönyv
                var selected = PhoneBookList.SelectedItem as PhoneBookEntry;
             if (selected != null)
             {
+                sideEmail.Text = selected.Email == "" ? "nincs megadva" : selected.Email;
+                sidedesc.Text = selected.Note == "" ? "nincs megadva" : selected.Note;
+                sideNickname.Text = selected.Nickname == "" ? "nincs megadva" : selected.Nickname;
                 sideCity.Text = selected.City;
                 sideName.Text = selected.Name;
                 sideTel.Text = selected.Phone;
+                
             }
         }
 

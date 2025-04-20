@@ -96,7 +96,6 @@
                     <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
-                    <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="40*"/>
@@ -197,7 +196,9 @@
                        Grid.Row="3"
                        Grid.Column="0"/>
                 <TextBlock Text="" 
+                           Margin="0,5,0,0"
                            FontSize="16" 
+                           TextWrapping="Wrap"
                            FontWeight="Bold" 
                            x:Name="sidedesc"
                            HorizontalAlignment="center" 
