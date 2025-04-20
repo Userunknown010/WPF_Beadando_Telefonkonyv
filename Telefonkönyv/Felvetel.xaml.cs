@@ -26,7 +26,27 @@ namespace Telefonkönyv
 
         private void Hozzaadgomb_Click(object sender, RoutedEventArgs e)
         {
-
+            if (nevbe.Text == "")
+            {
+                MessageBox.Show("Név megadása kötelező!");
+            }
+            else if (telefonszambe.Text == "")
+            {
+                MessageBox.Show("Telefonszám megadása kötelező!");
+            }
+            else if (!telefonszambe.Text.All(char.IsDigit))
+            {
+                MessageBox.Show("A telefonszám csak számokat tartalmazhat!");
+            }
+            else if (varosbe.Text == "")
+            {
+                MessageBox.Show("Város megadása kötelező!");
+            }
+            else
+            {
+                MessageBox.Show("Sikeres mentés!");
+                this.Close();
+            }
         }
 
         private void Elvetgomb_Click(object sender, RoutedEventArgs e)

@@ -99,8 +99,8 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="30*"/>
-                    <ColumnDefinition Width="70*"/>
+                    <ColumnDefinition Width="40*"/>
+                    <ColumnDefinition Width="60*"/>
                 </Grid.ColumnDefinitions>
                 <Image  Source="pack://application:,,,/images/placeholder.png"
                         HorizontalAlignment="Center"
@@ -124,7 +124,8 @@
                            Grid.Row="1"
                            Grid.Column="1"/>
 
-                <Label Content="Város:" 
+
+                <Label Content="Becenév:" 
                        FontSize="16" 
                        FontWeight="Bold" 
                        HorizontalAlignment="left" 
@@ -134,14 +135,13 @@
                 <TextBlock Text="" 
                            FontSize="16" 
                            FontWeight="Bold" 
-                           x:Name="sideCity"
+                           x:Name="sideNickname"
                            HorizontalAlignment="center" 
                            VerticalAlignment="Center" 
                            Grid.Row="1"
                            Grid.Column="1"/>
 
-
-                <Label Content="Tel.:" 
+                <Label  Content="Tel.:" 
                         FontSize="16" 
                         FontWeight="Bold" 
                         HorizontalAlignment="left" 
@@ -157,6 +157,53 @@
                             Grid.Row="1"
                             Grid.Column="1"/>
 
+                <Label Content="Város:" 
+                       FontSize="16" 
+                       FontWeight="Bold" 
+                       HorizontalAlignment="left" 
+                       VerticalAlignment="Top" 
+                       Grid.Row="2"
+                       Grid.Column="0"/>
+                <TextBlock Text="" 
+                           FontSize="16" 
+                           FontWeight="Bold" 
+                           x:Name="sideCity"
+                           HorizontalAlignment="center" 
+                           VerticalAlignment="Top" 
+                           Grid.Row="2"
+                           Grid.Column="1"/>
+
+                <Label Content="Email:" 
+                       FontSize="16" 
+                       FontWeight="Bold" 
+                       HorizontalAlignment="left" 
+                       VerticalAlignment="Center" 
+                       Grid.Row="2"
+                       Grid.Column="0"/>
+                <TextBlock  Text="" 
+                            FontSize="16" 
+                            FontWeight="Bold" 
+                            x:Name="sideEmail"
+                            HorizontalAlignment="center" 
+                            VerticalAlignment="Center" 
+                            Grid.Row="2"
+                            Grid.Column="1"/>
+
+                <Label Content="Megjegyzés:" 
+                       FontSize="16" 
+                       FontWeight="Bold" 
+                       HorizontalAlignment="left" 
+                       VerticalAlignment="top" 
+                       Grid.Row="3"
+                       Grid.Column="0"/>
+                <TextBlock Text="" 
+                           FontSize="16" 
+                           FontWeight="Bold" 
+                           x:Name="sidedesc"
+                           HorizontalAlignment="center" 
+                           VerticalAlignment="top" 
+                           Grid.Row="3"
+                           Grid.Column="1"/>
 
             </Grid>
         </Grid>
