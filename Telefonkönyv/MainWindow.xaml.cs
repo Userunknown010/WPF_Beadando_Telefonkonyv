@@ -75,5 +75,17 @@ namespace Telefonkönyv
             teljesFelvétel teljesFelvételWindow = new teljesFelvétel();
             teljesFelvételWindow.ShowDialog();
         }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            var selected = PhoneBookList.SelectedItem as PhoneBookEntry;
+            if (selected != null)
+            {
+
+                MódósításWindow módósításWindow = new MódósításWindow(selected);
+                módósításWindow.ShowDialog();
+
+            }
+        }
     }
 }

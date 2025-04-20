@@ -96,6 +96,7 @@
                     <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="40*"/>
@@ -205,7 +206,12 @@
                            VerticalAlignment="top" 
                            Grid.Row="3"
                            Grid.Column="1"/>
-
+                <Button  Content="Módosítás" 
+                         Grid.ColumnSpan="2"
+                         HorizontalAlignment="center" 
+                         VerticalAlignment="Center" 
+                         Grid.Row="4"
+                         Click="Button_Click_2"/>
             </Grid>
         </Grid>
     </Grid>
