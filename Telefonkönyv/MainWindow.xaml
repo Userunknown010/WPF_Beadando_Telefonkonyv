@@ -157,7 +157,7 @@
                             Grid.Row="1"
                             Grid.Column="1"/>
 
-                <Label Content="Város:" 
+                <Label Content="Irsz:" 
                        FontSize="16" 
                        FontWeight="Bold" 
                        HorizontalAlignment="left" 
@@ -167,9 +167,25 @@
                 <TextBlock Text="" 
                            FontSize="16" 
                            FontWeight="Bold" 
-                           x:Name="sideCity"
+                           x:Name="sideIrsz"
                            HorizontalAlignment="center" 
                            VerticalAlignment="Top" 
+                           Grid.Row="2"
+                           Grid.Column="1"/>
+
+                <Label Content="Város:" 
+                       FontSize="16" 
+                       FontWeight="Bold" 
+                       HorizontalAlignment="left" 
+                       VerticalAlignment="Center" 
+                       Grid.Row="2"
+                       Grid.Column="0"/>
+                <TextBlock Text="" 
+                           FontSize="16" 
+                           FontWeight="Bold" 
+                           x:Name="sideCity"
+                           HorizontalAlignment="center" 
+                           VerticalAlignment="Center" 
                            Grid.Row="2"
                            Grid.Column="1"/>
 
@@ -177,7 +193,7 @@
                        FontSize="16" 
                        FontWeight="Bold" 
                        HorizontalAlignment="left" 
-                       VerticalAlignment="Center" 
+                       VerticalAlignment="Bottom" 
                        Grid.Row="2"
                        Grid.Column="0"/>
                 <TextBlock  Text="" 
@@ -185,7 +201,7 @@
                             FontWeight="Bold" 
                             x:Name="sideEmail"
                             HorizontalAlignment="center" 
-                            VerticalAlignment="Center" 
+                            VerticalAlignment="Bottom" 
                             Grid.Row="2"
                             Grid.Column="1"/>
 
@@ -208,6 +224,8 @@
                            Grid.Column="1"/>
                 <Button  Content="Módosítás" 
                          Grid.ColumnSpan="2"
+                         Width="180" 
+                         Height="40"
                          HorizontalAlignment="center" 
                          VerticalAlignment="Center" 
                          Grid.Row="4"
