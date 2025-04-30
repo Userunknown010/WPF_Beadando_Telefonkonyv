@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Telefonkönyv.Models;
 
 namespace Telefonkönyv
 {
@@ -20,6 +21,8 @@ namespace Telefonkönyv
     /// </summary>
     public partial class teljesFelvétel : Window
     {
+
+        private byte[]? UploadedImageData;
         public teljesFelvétel()
         {
             InitializeComponent();
@@ -44,9 +47,51 @@ namespace Telefonkönyv
             }
             else
             {
+                AddContact();
                 MessageBox.Show("Sikeres mentés!");
                 this.Close();
             }
+        }
+
+        private void AddContact()
+        {
+            
+
+            using (var context = new MyDbContext())
+            {
+
+                int? pictureId = null;
+
+                if (UploadedImageData != null)
+                {
+                    var picture = new Picture
+                    {
+                        Picture1 = UploadedImageData, // A kép bináris adatai
+                    };
+
+                    context.Pictures.Add(picture);
+                    context.SaveChanges(); // Mentés a pictures táblába
+
+                    pictureId = picture.Id; // A mentett kép ID-jének lekérése
+                }
+
+                var contact = new Contact
+                {
+                    Name = nevbe.Text,
+                    PhoneNumber = telefonszambe.Text,
+                    Email = emailbe.Text,
+                    Nickname = becenevbe.Text,
+                    Note = megjegyzesbe.Text,
+                    CityId = int.TryParse(varosbe.Text, out int cityId) ? cityId : null,
+                    UploaderId = pictureId,
+                    IsActive = true
+                };
+
+                context.Contacts.Add(contact);
+                context.SaveChanges();
+            }
+
+            MessageBox.Show("Kapcsolat sikeresen hozzáadva.");
         }
 
         private void UploadPicture_Click(object sender, RoutedEventArgs e)
@@ -61,6 +106,8 @@ namespace Telefonkönyv
                 try
                 {
                     BitmapImage bitmap = new BitmapImage(new Uri(openFileDialog.FileName));
+
+                    UploadedImageData = System.IO.File.ReadAllBytes(openFileDialog.FileName);
                     MessageBox.Show("Kép sikeresen feltöltve!");
                 }
                 catch (Exception)

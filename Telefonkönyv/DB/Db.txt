@@ -1,0 +1,61 @@
+-- Permissions tábla
+CREATE TABLE Permissions (
+    permission_id INT PRIMARY KEY,
+    permission_name NVARCHAR(50) NOT NULL UNIQUE -- pl: 'admin', 'editor', 'viewer'
+);
+
+-- Citys tábla
+CREATE TABLE Citys (
+    City_id INT PRIMARY KEY,
+    City_name NVARCHAR(100),
+    Irsz NVARCHAR(20)
+);
+
+-- User tábla jogosultságra hivatkozással
+CREATE TABLE [user] (
+    id INT PRIMARY KEY,
+    username NVARCHAR(100) NOT NULL,
+    password NVARCHAR(100) NOT NULL,
+    permission_id INT NOT NULL FOREIGN KEY REFERENCES Permissions(permission_id)
+);
+
+-- Contact tábla, is_active mezővel
+CREATE TABLE contact (
+    id INT PRIMARY KEY,
+    Name NVARCHAR(100) NOT NULL,
+    phone_number NVARCHAR(20) NOT NULL,
+    Email NVARCHAR(100),
+    Nickname NVARCHAR(100),
+    Note NVARCHAR(MAX),
+    is_active BIT NOT NULL DEFAULT 1,
+    City_id INT FOREIGN KEY REFERENCES Citys(City_id),
+    Uploader_id INT FOREIGN KEY REFERENCES [user](id)
+);
+
+-- Pictures tábla
+CREATE TABLE Pictures (
+    id INT PRIMARY KEY,
+    picture VARBINARY(MAX)
+);
+
+-- Kapcsolótábla contact és pictures között
+CREATE TABLE ContactPictures (
+    contact_id INT FOREIGN KEY REFERENCES contact(id),
+    picture_id INT FOREIGN KEY REFERENCES Pictures(id),
+    PRIMARY KEY (contact_id, picture_id)
+);
+
+-- Logs tábla
+CREATE TABLE logs (
+    log_id INT PRIMARY KEY,
+    user_id INT FOREIGN KEY REFERENCES [user](id),
+    operation NVARCHAR(100),
+    timestamp DATETIME DEFAULT GETDATE()
+);
+
+-- jogosultságok
+
+INSERT INTO Permissions (permission_id, permission_name) VALUES
+(1, 'admin'),
+(2, 'editor'),
+(3, 'viewer');

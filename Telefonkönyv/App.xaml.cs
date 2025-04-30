@@ -9,6 +9,9 @@ namespace Telefonkönyv
     /// </summary>
     public partial class App : Application
     {
+        services.AddDbContext<MyDbContext>(options =>
+            options.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=MyAppDb;Trusted_Connection=True;TrustServerCertificate=True;"));
+
     }
 
 }
