@@ -18,6 +18,11 @@ namespace Telefonkönyv
             _context = context;
             TestDatabaseConnection();
             LoadPhoneBookEntries();
+
+            var cityList = _context.Citys
+                .Select(c => new { c.CityId, c.CityName }).First();
+            MessageBox.Show(cityList.CityName);
+
         }
 
         private void TestDatabaseConnection()
@@ -99,6 +104,7 @@ namespace Telefonkönyv
         {
             teljesFelvétel teljesFelvételWindow = new teljesFelvétel();
             teljesFelvételWindow.ShowDialog();
+            LoadPhoneBookEntries();
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)

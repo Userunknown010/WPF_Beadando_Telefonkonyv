@@ -75,6 +75,11 @@ namespace Telefonkönyv
                     pictureId = picture.Id; // A mentett kép ID-jének lekérése
                 }
 
+                int? cityid = cityid = context.Citys
+                    .Where(x => x.CityName == varosbe.Text)
+                    .Select(x => x.CityId)
+                    .FirstOrDefault();
+
                 var contact = new Contact
                 {
                     Name = nevbe.Text,
@@ -82,7 +87,7 @@ namespace Telefonkönyv
                     Email = emailbe.Text,
                     Nickname = becenevbe.Text,
                     Note = megjegyzesbe.Text,
-                    CityId = int.TryParse(varosbe.Text, out int cityId) ? cityId : null,
+                    CityId = cityid,
                     UploaderId = pictureId,
                     IsActive = true
                 };
