@@ -20,7 +20,7 @@ namespace Telefonkönyv
     /// </summary>
     public partial class MódósításWindow : Window
     {
-        public MódósításWindow(PhoneBookEntry obj)
+        public MódósításWindow(dynamic obj)
         {
             InitializeComponent();
             nevbe.Text = obj.Name;
