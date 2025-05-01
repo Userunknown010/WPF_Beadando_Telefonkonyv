@@ -29,17 +29,15 @@ public partial class MyDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=MyAppDb;Trusted_Connection=True;TrustServerCertificate=True;");
+        => optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=MyAppDb;Integrated Security=True;TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<City>(entity =>
         {
-            entity.HasKey(e => e.CityId).HasName("PK__Citys__DE9CEC38B57EA806");
+            entity.HasKey(e => e.CityId).HasName("PK__Citys__DE9CEC38AD9EEB0B");
 
-            entity.Property(e => e.CityId)
-                .ValueGeneratedNever()
-                .HasColumnName("City_id");
+            entity.Property(e => e.CityId).HasColumnName("City_id");
             entity.Property(e => e.CityName)
                 .HasMaxLength(100)
                 .HasColumnName("City_name");
@@ -48,13 +46,11 @@ public partial class MyDbContext : DbContext
 
         modelBuilder.Entity<Contact>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__contact__3213E83F3E48808D");
+            entity.HasKey(e => e.Id).HasName("PK__contact__3213E83F82B3ED83");
 
             entity.ToTable("contact");
 
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
+            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CityId).HasColumnName("City_id");
             entity.Property(e => e.Email).HasMaxLength(100);
             entity.Property(e => e.IsActive)
@@ -88,7 +84,7 @@ public partial class MyDbContext : DbContext
                         .HasConstraintName("FK__ContactPi__conta__45F365D3"),
                     j =>
                     {
-                        j.HasKey("ContactId", "PictureId").HasName("PK__ContactP__D99CFB16871034DB");
+                        j.HasKey("ContactId", "PictureId").HasName("PK__ContactP__D99CFB1669720472");
                         j.ToTable("ContactPictures");
                         j.IndexerProperty<int>("ContactId").HasColumnName("contact_id");
                         j.IndexerProperty<int>("PictureId").HasColumnName("picture_id");
@@ -97,13 +93,11 @@ public partial class MyDbContext : DbContext
 
         modelBuilder.Entity<Log>(entity =>
         {
-            entity.HasKey(e => e.LogId).HasName("PK__logs__9E2397E0BFAD3ED9");
+            entity.HasKey(e => e.LogId).HasName("PK__logs__9E2397E0BDEE392D");
 
             entity.ToTable("logs");
 
-            entity.Property(e => e.LogId)
-                .ValueGeneratedNever()
-                .HasColumnName("log_id");
+            entity.Property(e => e.LogId).HasColumnName("log_id");
             entity.Property(e => e.Operation)
                 .HasMaxLength(100)
                 .HasColumnName("operation");
@@ -120,13 +114,11 @@ public partial class MyDbContext : DbContext
 
         modelBuilder.Entity<Permission>(entity =>
         {
-            entity.HasKey(e => e.PermissionId).HasName("PK__Permissi__E5331AFA2856D261");
+            entity.HasKey(e => e.PermissionId).HasName("PK__Permissi__E5331AFAE731AD41");
 
-            entity.HasIndex(e => e.PermissionName, "UQ__Permissi__81C0F5A2DC0C9CBE").IsUnique();
+            entity.HasIndex(e => e.PermissionName, "UQ__Permissi__81C0F5A281AA98C2").IsUnique();
 
-            entity.Property(e => e.PermissionId)
-                .ValueGeneratedNever()
-                .HasColumnName("permission_id");
+            entity.Property(e => e.PermissionId).HasColumnName("permission_id");
             entity.Property(e => e.PermissionName)
                 .HasMaxLength(50)
                 .HasColumnName("permission_name");
@@ -134,23 +126,19 @@ public partial class MyDbContext : DbContext
 
         modelBuilder.Entity<Picture>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Pictures__3213E83FFF9D979E");
+            entity.HasKey(e => e.Id).HasName("PK__Pictures__3213E83F1A51CEE4");
 
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
+            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Picture1).HasColumnName("picture");
         });
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__user__3213E83F67FADC84");
+            entity.HasKey(e => e.Id).HasName("PK__user__3213E83F08DD1BC5");
 
             entity.ToTable("user");
 
-            entity.Property(e => e.Id)
-                .ValueGeneratedNever()
-                .HasColumnName("id");
+            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Password)
                 .HasMaxLength(100)
                 .HasColumnName("password");
