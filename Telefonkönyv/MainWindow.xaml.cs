@@ -49,12 +49,12 @@ namespace Telefonkönyv
                 {
                     ContactId = c.Id,
                     Name = c.Name,
-                    PhoneNumber = c.PhoneNumber,
+                    Phone = c.PhoneNumber,
                     Email = c.Email,
                     Nickname = c.Nickname,
                     Note = c.Note,
-                    CityName = c.City != null ? c.City.CityName : "Nincs megadva", // Város neve
-                    Irsz = c.City != null ? c.City.Irsz : "Nincs megadva", // Irányítószám
+                    City = c.City.CityName, // Város neve
+                    Irsz = c.City.Irsz, // Irányítószám
                     PictureData = c.Pictures.FirstOrDefault() != null ? c.Pictures.FirstOrDefault().Picture1 : null // Az első kép bináris adatai
                 })
                 .ToList();
@@ -70,8 +70,9 @@ namespace Telefonkönyv
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Felvetel addwindow = new Felvetel();
+            Felvetel addwindow = new Felvetel(_context);
             addwindow.ShowDialog();
+            LoadPhoneBookEntries();
         }
 
         private void LoginMenuButton_Click(object sender, RoutedEventArgs e)
@@ -93,9 +94,9 @@ namespace Telefonkönyv
                 sideEmail.Text = string.IsNullOrEmpty(selected.Email) ? "nincs megadva" : selected.Email;
                 sidedesc.Text = string.IsNullOrEmpty(selected.Note) ? "nincs megadva" : selected.Note;
                 sideNickname.Text = string.IsNullOrEmpty(selected.Nickname) ? "nincs megadva" : selected.Nickname;
-                sideCity.Text = selected.CityName;
+                sideCity.Text = selected.City;
                 sideName.Text = selected.Name;
-                sideTel.Text = selected.PhoneNumber;
+                sideTel.Text = selected.Phone;
                 sideIrsz.Text = string.IsNullOrEmpty(selected.Irsz) ? "nincs megadva" : selected.Irsz;
             }
         }

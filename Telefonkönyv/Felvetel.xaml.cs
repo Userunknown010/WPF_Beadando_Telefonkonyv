@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Telefonkönyv.Models;
 
 namespace Telefonkönyv
 {
@@ -19,9 +20,13 @@ namespace Telefonkönyv
     /// </summary>
     public partial class Felvetel : Window
     {
-        public Felvetel()
+        private readonly MyDbContext _context;
+
+        public Felvetel(MyDbContext context)
         {
             InitializeComponent();
+            _context = context;
+
         }
 
         private void Hozzaadgomb_Click(object sender, RoutedEventArgs e)
@@ -44,9 +49,34 @@ namespace Telefonkönyv
             }
             else
             {
+                addContact();
                 MessageBox.Show("Sikeres mentés!");
                 this.Close();
             }
+        }
+
+        private void addContact()
+        {
+            int? cityid = cityid = _context.Citys
+                   .Where(x => x.CityName == varosbe.Text)
+                   .Select(x => x.CityId)
+                   .FirstOrDefault();
+
+            var contact = new Contact
+            {
+                Name = nevbe.Text,
+                PhoneNumber = telefonszambe.Text,
+                Email = null,
+                Nickname = null,
+                Note = null,
+                CityId = cityid,
+                UploaderId = null,
+                IsActive = true
+            };
+
+            _context.Contacts.Add(contact);
+            _context.SaveChanges();
+        
         }
 
         private void Elvetgomb_Click(object sender, RoutedEventArgs e)
