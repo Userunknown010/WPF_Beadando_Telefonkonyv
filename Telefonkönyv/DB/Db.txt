@@ -55,10 +55,10 @@ CREATE TABLE logs (
 
 -- jogosultságok
 
-INSERT INTO Permissions (permission_id, permission_name) VALUES
-(1, 'admin'),
-(2, 'editor'),
-(3, 'viewer');
+INSERT INTO Permissions (permission_name) VALUES
+('admin'),
+('editor'),
+('viewer');
 
 INSERT INTO Citys (Irsz , City_name)
 VALUES
