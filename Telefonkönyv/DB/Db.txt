@@ -1,19 +1,19 @@
 -- Permissions tábla
 CREATE TABLE Permissions (
-    permission_id INT PRIMARY KEY,
+    permission_id INT IDENTITY(1,1) PRIMARY KEY,
     permission_name NVARCHAR(50) NOT NULL UNIQUE -- pl: 'admin', 'editor', 'viewer'
 );
 
 -- Citys tábla
 CREATE TABLE Citys (
-    City_id INT PRIMARY KEY,
+    City_id INT IDENTITY(1,1) PRIMARY KEY,
     City_name NVARCHAR(100),
     Irsz NVARCHAR(20)
 );
 
 -- User tábla jogosultságra hivatkozással
 CREATE TABLE [user] (
-    id INT PRIMARY KEY,
+    id INT IDENTITY(1,1) PRIMARY KEY,
     username NVARCHAR(100) NOT NULL,
     password NVARCHAR(100) NOT NULL,
     permission_id INT NOT NULL FOREIGN KEY REFERENCES Permissions(permission_id)
@@ -21,7 +21,7 @@ CREATE TABLE [user] (
 
 -- Contact tábla, is_active mezővel
 CREATE TABLE contact (
-    id INT PRIMARY KEY,
+    id INT IDENTITY(1,1) PRIMARY KEY,
     Name NVARCHAR(100) NOT NULL,
     phone_number NVARCHAR(20) NOT NULL,
     Email NVARCHAR(100),
@@ -34,7 +34,7 @@ CREATE TABLE contact (
 
 -- Pictures tábla
 CREATE TABLE Pictures (
-    id INT PRIMARY KEY,
+    id INT IDENTITY(1,1) PRIMARY KEY,
     picture VARBINARY(MAX)
 );
 
@@ -47,7 +47,7 @@ CREATE TABLE ContactPictures (
 
 -- Logs tábla
 CREATE TABLE logs (
-    log_id INT PRIMARY KEY,
+    log_id INT IDENTITY(1,1) PRIMARY KEY,
     user_id INT FOREIGN KEY REFERENCES [user](id),
     operation NVARCHAR(100),
     timestamp DATETIME DEFAULT GETDATE()
