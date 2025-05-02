@@ -42,7 +42,7 @@ namespace Telefonkönyv
         {
             var contactsWithDetails = _context.Contacts
                 .Include(c => c.City) // Betöltjük a kapcsolódó várost
-                .Include(c => c.Pictures) // Betöltjük a kapcsolódó képeket
+                .Include(c => c.Picture) // Betöltjük a kapcsolódó képeket
                 .Where(c => c.IsActive) // Csak az aktív kapcsolatok
                 .Select(c => new
                 {
@@ -54,7 +54,7 @@ namespace Telefonkönyv
                     Note = c.Note,
                     City = c.City.CityName, // Város neve
                     Irsz = c.City.Irsz, // Irányítószám
-                    PictureData = c.Pictures.FirstOrDefault() != null ? c.Pictures.FirstOrDefault().Picture1 : null // Az első kép bináris adatai
+                    PictureData = c.Picture != null ? c.Picture.Picture1 : null // Az első kép bináris adatai
                 })
                 .ToList();
 
@@ -117,13 +117,13 @@ namespace Telefonkönyv
             var selected = PhoneBookList.SelectedItem as Contact; // Az objektum a LINQ lekérdezésből származik
 
             var sor = _context.Contacts.Include(c => c.City)
-                .Include(c => c.Pictures)
+                .Include(c => c.Picture)
                 .FirstOrDefault(c => c.Id == selected.Id);
 
             if (selected != null)
             {
                 
-                sideImage.Source = sor.Pictures.FirstOrDefault().Picture1 == null ?  : ByteArrayToImage(sor.Pictures.FirstOrDefault().Picture1);
+                sideImage.Source = sor.Picture.Picture1 == null ? null : ByteArrayToImage(sor.Picture.Picture1);
                 sideEmail.Text = string.IsNullOrEmpty(sor.Email) ? "nincs megadva" : selected.Email;
                 sidedesc.Text = string.IsNullOrEmpty(sor.Note) ? "nincs megadva" : selected.Note;
                 sideNickname.Text = string.IsNullOrEmpty(sor.Nickname) ? "nincs megadva" : selected.Nickname;

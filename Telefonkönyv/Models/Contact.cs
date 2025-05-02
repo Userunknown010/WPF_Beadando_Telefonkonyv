@@ -23,9 +23,11 @@ public partial class Contact
 
     public int? UploaderId { get; set; }
 
+    public int? PictureId { get; set; }
+
     public virtual City? City { get; set; }
 
-    public virtual User? Uploader { get; set; }
+    public virtual Picture? Picture { get; set; }
 
-    public virtual ICollection<Picture> Pictures { get; set; } = new List<Picture>();
+    public virtual User? Uploader { get; set; }
 }
