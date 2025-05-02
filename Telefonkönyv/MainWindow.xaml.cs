@@ -213,12 +213,13 @@ namespace Telefonkönyv
             }
             else MessageBox.Show("Csak bejelentkezett felhasználók módosíthatnak bejegyzéseket.");
 
-            
+
         }
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
-            if (Felhasználó != null) {
+            if (Felhasználó != null)
+            {
                 Application.Current.Properties["FelhasznaloNev"] = null;
                 Felhasználó = (string)Application.Current.Properties["FelhasznaloNev"];
                 MessageBox.Show("Sikeres kijelentkezés.");
