@@ -24,6 +24,14 @@ namespace Telefonkönyv
             {
                 Application.Current.Properties["FelhasznaloNev"] = username;
                 MessageBox.Show($"Bejelentkezés sikeres: {username}");
+                var newLog = new Log
+                {
+                    UserId = _context.Users.Where(x => x.Username == username).Select(x => x.Id).First(),
+                    Operation = "Bejelentkezés - " + username,
+                    Timestamp = DateTime.Now
+                };
+                _context.Logs.Add(newLog);
+                _context.SaveChanges();
             }
             else MessageBox.Show("Ez a felhasználónév nem létezik!");
             
