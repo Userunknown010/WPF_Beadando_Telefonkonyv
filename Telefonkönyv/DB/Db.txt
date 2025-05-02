@@ -1,17 +1,23 @@
+-- ========================
 -- Permissions tábla
+-- ========================
 CREATE TABLE Permissions (
     permission_id INT IDENTITY(1,1) PRIMARY KEY,
     permission_name NVARCHAR(50) NOT NULL UNIQUE -- pl: 'admin', 'editor', 'viewer'
 );
 
+-- ========================
 -- Citys tábla
+-- ========================
 CREATE TABLE Citys (
     City_id INT IDENTITY(1,1) PRIMARY KEY,
     City_name NVARCHAR(100),
     Irsz NVARCHAR(20)
 );
 
--- User tábla jogosultságra hivatkozással
+-- ========================
+-- User tábla jogosultsággal
+-- ========================
 CREATE TABLE [user] (
     id INT IDENTITY(1,1) PRIMARY KEY,
     username NVARCHAR(100) NOT NULL,
@@ -19,7 +25,17 @@ CREATE TABLE [user] (
     permission_id INT NOT NULL FOREIGN KEY REFERENCES Permissions(permission_id)
 );
 
--- Contact tábla, is_active mezővel
+-- ========================
+-- Pictures tábla (bináris képek)
+-- ========================
+CREATE TABLE Pictures (
+    id INT IDENTITY(1,1) PRIMARY KEY,
+    picture VARBINARY(MAX)
+);
+
+-- ========================
+-- Contact tábla (kép közvetlenül kapcsolva)
+-- ========================
 CREATE TABLE contact (
     id INT IDENTITY(1,1) PRIMARY KEY,
     Name NVARCHAR(100) NOT NULL,
@@ -29,23 +45,13 @@ CREATE TABLE contact (
     Note NVARCHAR(MAX),
     is_active BIT NOT NULL DEFAULT 1,
     City_id INT FOREIGN KEY REFERENCES Citys(City_id),
-    Uploader_id INT FOREIGN KEY REFERENCES [user](id)
+    Uploader_id INT FOREIGN KEY REFERENCES [user](id),
+    picture_id INT FOREIGN KEY REFERENCES Pictures(id) -- egy kép kapcsolása
 );
 
--- Pictures tábla
-CREATE TABLE Pictures (
-    id INT IDENTITY(1,1) PRIMARY KEY,
-    picture VARBINARY(MAX)
-);
-
--- Kapcsolótábla contact és pictures között
-CREATE TABLE ContactPictures (
-    contact_id INT FOREIGN KEY REFERENCES contact(id),
-    picture_id INT FOREIGN KEY REFERENCES Pictures(id),
-    PRIMARY KEY (contact_id, picture_id)
-);
-
+-- ========================
 -- Logs tábla
+-- ========================
 CREATE TABLE logs (
     log_id INT IDENTITY(1,1) PRIMARY KEY,
     user_id INT FOREIGN KEY REFERENCES [user](id),
