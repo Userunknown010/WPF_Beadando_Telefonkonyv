@@ -52,12 +52,12 @@ namespace Telefonkönyv
                 var permissionID = _context.Permissions.FirstOrDefault(x => x.PermissionName == permissionbox.Text).PermissionId;
                 var newUser = new User
                 {
-                    Username = username,
                     Password = password,
+                    Username = username,
                     PermissionId = permissionID
                 };
                 _context.Users.Add(newUser);
-
+                _context.SaveChanges();
                 MessageBox.Show(permissionID.ToString());
                 MessageBox.Show($"Sikeres regisztráció: {username}");
             }

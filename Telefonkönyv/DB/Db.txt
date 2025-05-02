@@ -15,7 +15,7 @@ CREATE TABLE Citys (
 CREATE TABLE [user] (
     id INT IDENTITY(1,1) PRIMARY KEY,
     username NVARCHAR(100) NOT NULL,
-    password NVARCHAR(100) NOT NULL,
+    password VARBINARY(64) NOT NULL, -- Hashelt jelszó bináris formában
     permission_id INT NOT NULL FOREIGN KEY REFERENCES Permissions(permission_id)
 );
 
