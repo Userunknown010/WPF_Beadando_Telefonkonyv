@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -12,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Telefonkönyv.Models;
 
 namespace Telefonkönyv
 {
@@ -20,15 +22,17 @@ namespace Telefonkönyv
     /// </summary>
     public partial class MódósításWindow : Window
     {
-        public MódósításWindow(dynamic obj)
+        private Contact _contact;
+        public MódósításWindow(Contact contact)
         {
             InitializeComponent();
-            nevbe.Text = obj.Name;
-            becenevbe.Text = obj.Nickname;
-            telefonszambe.Text = obj.Phone;
-            varosbe.Text = obj.City;
-            emailbe.Text = obj.Email;
-            megjegyzesbe.Text = obj.Note;
+            _contact = contact;
+            nevbe.Text = _contact.Name;
+            becenevbe.Text = _contact.Nickname;
+            telefonszambe.Text = _contact.PhoneNumber;
+            varosbe.Text = _contact.City.CityName;
+            emailbe.Text = _contact.Email;
+            megjegyzesbe.Text = _contact.Note;
         }
         private void Módosításgomb_Click(object sender, RoutedEventArgs e)
         {
