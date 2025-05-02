@@ -7,10 +7,11 @@ using static MaterialDesignThemes.Wpf.Theme;
 
 namespace Telefonkönyv
 {
-
+    
     public partial class MainWindow : Window
     {
         private readonly MyDbContext _context;
+        public string Felhasználó;
 
         public MainWindow(MyDbContext context)
         {
@@ -18,6 +19,7 @@ namespace Telefonkönyv
             _context = context;
             TestDatabaseConnection();
             LoadPhoneBookEntries();
+            Felhasználó = null;
         }
 
         private void TestDatabaseConnection()
@@ -65,9 +67,16 @@ namespace Telefonkönyv
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Felvetel addwindow = new Felvetel(_context);
-            addwindow.ShowDialog();
-            LoadPhoneBookEntries();
+            if (Felhasználó != null)
+            {
+                Felvetel addwindow = new Felvetel(_context, Felhasználó);
+                addwindow.ShowDialog();
+                LoadPhoneBookEntries();
+            }
+            else {
+            MessageBox.Show("Csak bejelentkezett felhasználók adhatnak hozzá új bejegyzést.");
+            }
+            
         }
 
         private void LoginMenuButton_Click(object sender, RoutedEventArgs e)
@@ -98,23 +107,67 @@ namespace Telefonkönyv
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            teljesFelvétel teljesFelvételWindow = new teljesFelvétel();
-            teljesFelvételWindow.ShowDialog();
-            LoadPhoneBookEntries();
+            if(Felhasználó != null)
+            {
+                teljesFelvétel teljesFelvételWindow = new teljesFelvétel(Felhasználó);
+                teljesFelvételWindow.ShowDialog();
+                LoadPhoneBookEntries();
+            }else
+            {
+                MessageBox.Show("Csak bejelentkezett felhasználók adhatnak hozzá új bejegyzést.");
+            }
+            
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
-            var selected = PhoneBookList.SelectedItem as dynamic;
-            if (selected != null)
+
+            if(Felhasználó != null)
             {
-                MódósításWindow módósításWindow = new MódósításWindow(selected);
-                módósításWindow.ShowDialog();
+                var perm = _context.Users
+                    .Where(x => x.Username == Felhasználó)
+                    .Select(x => x.Permission.PermissionName).First();
+                if (perm == "editor" || perm == "admin")
+                {
+                    var selected = PhoneBookList.SelectedItem as dynamic;
+                    if (selected != null)
+                    {
+                        MódósításWindow módósításWindow = new MódósításWindow(selected);
+                        módósításWindow.ShowDialog();
+                    }
+                    else MessageBox.Show("Kérlek válassz ki egy bejegyzést a módosításhoz.");
+                }
+                else MessageBox.Show("nincs ehhez jogosultságod");
+                
             }
-            else
+            else MessageBox.Show("Csak bejelentkezett felhasználók módosíthatnak bejegyzéseket.");
+
+            }
+
+        private void Törlés_Click(object sender, RoutedEventArgs e)
+        {
+
+            if (Felhasználó != null)
             {
-                MessageBox.Show("Kérlek válassz ki egy bejegyzést a módosításhoz.");
+                var perm = _context.Users
+                    .Where(x => x.Username == Felhasználó)
+                    .Select(x => x.Permission.PermissionName).First();
+                if (perm == "editor" || perm == "admin")
+                {
+                    var selected = PhoneBookList.SelectedItem as dynamic;
+                    if (selected != null)
+                    {
+                        selected.IsActive = false;
+                        _context.SaveChanges();
+                    }
+                    else MessageBox.Show("Kérlek válassz ki egy bejegyzést a törléshez.");
+                }
+                else MessageBox.Show("nincs ehhez jogosultságod");
+
             }
+            else MessageBox.Show("Csak bejelentkezett felhasználók módosíthatnak bejegyzéseket.");
+
+            
         }
     }
 }

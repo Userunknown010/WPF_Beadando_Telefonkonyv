@@ -21,11 +21,13 @@ namespace Telefonkönyv
     public partial class Felvetel : Window
     {
         private readonly MyDbContext _context;
+        private string Felhasználó;
 
-        public Felvetel(MyDbContext context)
+        public Felvetel(MyDbContext context, string felh)
         {
             InitializeComponent();
             _context = context;
+            Felhasználó = felh;
 
         }
 
@@ -62,6 +64,8 @@ namespace Telefonkönyv
                    .Select(x => x.CityId)
                    .FirstOrDefault();
 
+            var uploader = _context.Users.Where(x => x.Username == Felhasználó).Select(x => x.Id).First();
+
             var contact = new Contact
             {
                 Name = nevbe.Text,
@@ -70,7 +74,7 @@ namespace Telefonkönyv
                 Nickname = null,
                 Note = null,
                 CityId = cityid,
-                UploaderId = null,
+                UploaderId = uploader,
                 IsActive = true
             };
 

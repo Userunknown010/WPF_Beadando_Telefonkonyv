@@ -36,7 +36,7 @@
                       HorizontalAlignment="Stretch" 
                       VerticalAlignment="Stretch"
                       SelectionChanged="PhoneBookList_SelectionChanged">
-                       
+
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Név" DisplayMemberBinding="{Binding Name}" Width="230"/>
@@ -223,13 +223,22 @@
                            Grid.Row="3"
                            Grid.Column="1"/>
                 <Button  Content="Módosítás" 
-                         Grid.ColumnSpan="2"
-                         Width="180" 
-                         Height="40"
-                         HorizontalAlignment="center" 
-                         VerticalAlignment="Center" 
+                         Width="100" 
+                        Height="30" 
+                        HorizontalAlignment="Center" 
+                        VerticalAlignment="Center" 
                          Grid.Row="4"
-                         Click="Button_Click_2"/>
+                         Click="Button_Click_2" />
+                    <Button  Content="Törlés" 
+                     Width="100" 
+                    Height="30" 
+                    Grid.Column="1"
+                    x:Name="Törlés"
+                    HorizontalAlignment="Center" 
+                    VerticalAlignment="Center" 
+                     Grid.Row="4"
+                    Click="Törlés_Click" />
+                
             </Grid>
         </Grid>
     </Grid>

@@ -23,9 +23,11 @@ namespace Telefonkönyv
     {
 
         private byte[]? UploadedImageData;
-        public teljesFelvétel()
+        private string Felhasználó;
+        public teljesFelvétel(string felh)
         {
             InitializeComponent();
+            Felhasználó = felh;
         }
 
         private void Hozzaadgomb_Click(object sender, RoutedEventArgs e)
@@ -80,6 +82,8 @@ namespace Telefonkönyv
                     .Select(x => x.CityId)
                     .FirstOrDefault();
 
+                var uploader = context.Users.Where(x=>x.Username == Felhasználó).Select(x => x.Id).First();
+
                 var contact = new Contact
                 {
                     Name = nevbe.Text,
@@ -88,7 +92,7 @@ namespace Telefonkönyv
                     Nickname = becenevbe.Text,
                     Note = megjegyzesbe.Text,
                     CityId = cityid,
-                    UploaderId = pictureId,
+                    UploaderId = uploader,
                     IsActive = true
                 };
 
