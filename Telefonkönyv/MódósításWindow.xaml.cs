@@ -54,8 +54,31 @@ namespace Telefonkönyv
             }
             else
             {
+                Update();
                 MessageBox.Show("Sikeres mentés!");
                 this.Close();
+            }
+        }
+
+        private void Update()
+        {
+            using (var context = new MyDbContext())
+            {
+                var contact = context.Contacts.Find(_contact.Id);
+                if (contact != null)
+                {
+                    contact.Name = nevbe.Text;
+                    contact.Nickname = becenevbe.Text;
+                    contact.PhoneNumber = telefonszambe.Text;
+                    contact.Email = emailbe.Text;
+                    contact.Note = megjegyzesbe.Text;
+                    int? cityid = context.Citys
+                        .Where(x => x.CityName == varosbe.Text)
+                        .Select(x => x.CityId)
+                        .FirstOrDefault();
+                    contact.CityId = cityid;
+                    context.SaveChanges();
+                }
             }
         }
 
