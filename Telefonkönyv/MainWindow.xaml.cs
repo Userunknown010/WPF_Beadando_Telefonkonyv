@@ -213,6 +213,8 @@ namespace Telefonkönyv
         {
             if (Felhasználó != null) {
                 Application.Current.Properties["FelhasznaloNev"] = null;
+                Felhasználó = (string)Application.Current.Properties["FelhasznaloNev"];
+                MessageBox.Show("Sikeres kijelentkezés.");
             }
             else
             {
