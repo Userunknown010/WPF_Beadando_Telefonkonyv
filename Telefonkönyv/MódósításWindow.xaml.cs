@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -77,6 +78,15 @@ namespace Telefonkönyv
                         .Select(x => x.CityId)
                         .FirstOrDefault();
                     contact.CityId = cityid;
+                    context.SaveChanges();
+
+                    var newLog = new Log
+                    {
+                        UserId = contact.Id,
+                        Operation = "Módosítás - " + contact.Name,
+                        Timestamp = DateTime.Now
+                    };
+                    context.Logs.Add(newLog);
                     context.SaveChanges();
                 }
             }
