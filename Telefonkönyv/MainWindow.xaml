@@ -40,8 +40,8 @@
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Név" DisplayMemberBinding="{Binding Name}" Width="230"/>
-                        <GridViewColumn Header="Város" DisplayMemberBinding="{Binding City}" Width="200"/>
-                        <GridViewColumn Header="Telefonszám" DisplayMemberBinding="{Binding Phone}" Width="160"/>
+                        <GridViewColumn Header="Város" DisplayMemberBinding="{Binding City.CityName}" Width="200"/>
+                        <GridViewColumn Header="Telefonszám" DisplayMemberBinding="{Binding PhoneNumber}"/>
                     </GridView>
                 </ListView.View>
             </ListView>

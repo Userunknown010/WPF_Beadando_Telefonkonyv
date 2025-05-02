@@ -93,6 +93,7 @@ namespace Telefonkönyv
                     Note = megjegyzesbe.Text,
                     CityId = cityid,
                     UploaderId = uploader,
+                    PictureId = pictureId,
                     IsActive = true
                 };
 

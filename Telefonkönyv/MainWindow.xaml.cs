@@ -44,18 +44,6 @@ namespace Telefonkönyv
                 .Include(c => c.City) // Betöltjük a kapcsolódó várost
                 .Include(c => c.Picture) // Betöltjük a kapcsolódó képeket
                 .Where(c => c.IsActive) // Csak az aktív kapcsolatok
-                .Select(c => new
-                {
-                    ContactId = c.Id,
-                    Name = c.Name,
-                    Phone = c.PhoneNumber,
-                    Email = c.Email,
-                    Nickname = c.Nickname,
-                    Note = c.Note,
-                    City = c.City.CityName, // Város neve
-                    Irsz = c.City.Irsz, // Irányítószám
-                    PictureData = c.Picture != null ? c.Picture.Picture1 : null // Az első kép bináris adatai
-                })
                 .ToList();
 
             PhoneBookList.ItemsSource = contactsWithDetails;
@@ -115,23 +103,27 @@ namespace Telefonkönyv
         private void PhoneBookList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var selected = PhoneBookList.SelectedItem as Contact; // Az objektum a LINQ lekérdezésből származik
-
-            var sor = _context.Contacts.Include(c => c.City)
-                .Include(c => c.Picture)
-                .FirstOrDefault(c => c.Id == selected.Id);
-
+            var city = _context.Citys.FirstOrDefault(x => x.CityId == selected.CityId);
             if (selected != null)
             {
+                if (selected.PictureId.HasValue)
+                {
+                    var picture = _context.Pictures.FirstOrDefault(x => x.Id == selected.PictureId.Value)?.Picture1;
+                    sideImage.Source = selected.Picture == null ? null : ByteArrayToImage(picture);
+                }
+                else
+                {
+                    sideImage.Source = new BitmapImage(new Uri("pack://application:,,,/images/placeholder.png"));
+                }
+
+                sideEmail.Text = string.IsNullOrEmpty(selected.Email) ? "nincs megadva" : selected.Email;
+                sidedesc.Text = string.IsNullOrEmpty(selected.Note) ? "nincs megadva" : selected.Note;
+                sideNickname.Text = string.IsNullOrEmpty(selected.Nickname) ? "nincs megadva" : selected.Nickname;
                 
-                sideImage.Source = sor.Picture.Picture1 == null ? null : ByteArrayToImage(sor.Picture.Picture1);
-                sideEmail.Text = string.IsNullOrEmpty(sor.Email) ? "nincs megadva" : selected.Email;
-                sidedesc.Text = string.IsNullOrEmpty(sor.Note) ? "nincs megadva" : selected.Note;
-                sideNickname.Text = string.IsNullOrEmpty(sor.Nickname) ? "nincs megadva" : selected.Nickname;
-                
-                sideCity.Text = sor.CityId.ToString();
-                sideName.Text = sor.Name;
-                sideTel.Text = sor.PhoneNumber;
-                sideIrsz.Text = string.IsNullOrEmpty(sor.City.Irsz) ? "nincs megadva" : sor.City.Irsz;
+                sideCity.Text = selected.City.CityName.ToString();
+                sideName.Text = selected.Name;
+                sideTel.Text = selected.PhoneNumber;
+                sideIrsz.Text = string.IsNullOrEmpty(selected.City.Irsz) ? "nincs megadva" : selected.City.Irsz;
             }
         }
 
@@ -189,6 +181,7 @@ namespace Telefonkönyv
                     {
                         selected.IsActive = false;
                         _context.SaveChanges();
+                        LoadPhoneBookEntries();
                     }
                     else MessageBox.Show("Kérlek válassz ki egy bejegyzést a törléshez.");
                 }
