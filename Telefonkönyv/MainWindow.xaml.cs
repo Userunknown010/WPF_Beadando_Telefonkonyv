@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Media.Imaging;
 using Telefonkönyv.Models;
 using static MaterialDesignThemes.Wpf.Theme;
@@ -40,7 +41,9 @@ namespace Telefonkönyv
 
         private void LoadPhoneBookEntries()
         {
+            PhoneBookList.ItemsSource = null;
             var contactsWithDetails = _context.Contacts
+                .AsNoTracking()
                 .Include(c => c.City) // Betöltjük a kapcsolódó várost
                 .Include(c => c.Picture) // Betöltjük a kapcsolódó képeket
                 .Where(c => c.IsActive) // Csak az aktív kapcsolatok
@@ -63,10 +66,11 @@ namespace Telefonkönyv
                 addwindow.ShowDialog();
                 LoadPhoneBookEntries();
             }
-            else {
-            MessageBox.Show("Csak bejelentkezett felhasználók adhatnak hozzá új bejegyzést.");
+            else
+            {
+                MessageBox.Show("Csak bejelentkezett felhasználók adhatnak hozzá új bejegyzést.");
             }
-            
+
         }
 
         private void LoginMenuButton_Click(object sender, RoutedEventArgs e)
