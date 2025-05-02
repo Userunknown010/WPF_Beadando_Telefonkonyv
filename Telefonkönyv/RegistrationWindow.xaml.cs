@@ -7,6 +7,7 @@ namespace Telefonkönyv
     public partial class RegistrationWindow : Window
     {
         private readonly MyDbContext _context;
+        string nev = (string)Application.Current.Properties["FelhasznaloNev"];
         public RegistrationWindow(MyDbContext context)
         {
             InitializeComponent();
@@ -39,15 +40,12 @@ namespace Telefonkönyv
 
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(confirmPassword)){
                 MessageBox.Show("Kérjük, töltse ki az összes mezőt!");
-                return;
             }
             else if (users.Contains(username)){
                 MessageBox.Show("Ez a felhasználónév már létezik!");
-                return;
             }
             else if (password != confirmPassword){
                 MessageBox.Show("A két jelszó nem egyezik!");
-                return;
             }
             else {
                 var permissionID = _context.Permissions.FirstOrDefault(x => x.PermissionName == permissionbox.Text).PermissionId;
@@ -61,10 +59,10 @@ namespace Telefonkönyv
                 _context.SaveChanges();
                 MessageBox.Show(permissionID.ToString());
                 MessageBox.Show($"Sikeres regisztráció: {username}");
+                Application.Current.Properties["FelhasznaloNev"] = username;
             }
 
 
-                
 
             this.Close();
         }

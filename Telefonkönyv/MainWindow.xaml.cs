@@ -1,7 +1,9 @@
 ﻿using Azure;
 using Microsoft.EntityFrameworkCore;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 using Telefonkönyv.Models;
 using static MaterialDesignThemes.Wpf.Theme;
 
@@ -11,7 +13,7 @@ namespace Telefonkönyv
     public partial class MainWindow : Window
     {
         private readonly MyDbContext _context;
-        public string Felhasználó;
+        string Felhasználó = (string)Application.Current.Properties["FelhasznaloNev"];
 
         public MainWindow(MyDbContext context)
         {
@@ -81,27 +83,55 @@ namespace Telefonkönyv
 
         private void LoginMenuButton_Click(object sender, RoutedEventArgs e)
         {
-            LoginWindow loginWindow = new LoginWindow();
+            LoginWindow loginWindow = new LoginWindow(_context);
             loginWindow.ShowDialog();
+            Felhasználó = (string)Application.Current.Properties["FelhasznaloNev"];
+            MessageBox.Show(Felhasználó);
         }
         private void RegistrationMenuButton_Click(object sender, RoutedEventArgs e)
         {
             RegistrationWindow regWindow = new RegistrationWindow(_context);
             regWindow.ShowDialog();
+            Felhasználó = (string)Application.Current.Properties["FelhasznaloNev"];
+            MessageBox.Show(Felhasználó);
         }
+
+
+        public static BitmapImage ByteArrayToImage(byte[] imageData)
+        {
+            using (var ms = new MemoryStream(imageData))
+            {
+                var image = new BitmapImage();
+                image.BeginInit();
+                image.CacheOption = BitmapCacheOption.OnLoad;
+                image.StreamSource = ms;
+                image.EndInit();
+                image.Freeze(); // Ha háttérszálról akarod elérni
+                return image;
+            }
+        }
+
 
         private void PhoneBookList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var selected = PhoneBookList.SelectedItem as dynamic; // Az objektum a LINQ lekérdezésből származik
+            var selected = PhoneBookList.SelectedItem as Contact; // Az objektum a LINQ lekérdezésből származik
+
+            var sor = _context.Contacts.Include(c => c.City)
+                .Include(c => c.Pictures)
+                .FirstOrDefault(c => c.Id == selected.Id);
+
             if (selected != null)
             {
-                sideEmail.Text = string.IsNullOrEmpty(selected.Email) ? "nincs megadva" : selected.Email;
-                sidedesc.Text = string.IsNullOrEmpty(selected.Note) ? "nincs megadva" : selected.Note;
-                sideNickname.Text = string.IsNullOrEmpty(selected.Nickname) ? "nincs megadva" : selected.Nickname;
-                sideCity.Text = selected.City;
-                sideName.Text = selected.Name;
-                sideTel.Text = selected.Phone;
-                sideIrsz.Text = string.IsNullOrEmpty(selected.Irsz) ? "nincs megadva" : selected.Irsz;
+                
+                sideImage.Source = sor.Pictures.FirstOrDefault().Picture1 == null ?  : ByteArrayToImage(sor.Pictures.FirstOrDefault().Picture1);
+                sideEmail.Text = string.IsNullOrEmpty(sor.Email) ? "nincs megadva" : selected.Email;
+                sidedesc.Text = string.IsNullOrEmpty(sor.Note) ? "nincs megadva" : selected.Note;
+                sideNickname.Text = string.IsNullOrEmpty(sor.Nickname) ? "nincs megadva" : selected.Nickname;
+                
+                sideCity.Text = sor.CityId.ToString();
+                sideName.Text = sor.Name;
+                sideTel.Text = sor.PhoneNumber;
+                sideIrsz.Text = string.IsNullOrEmpty(sor.City.Irsz) ? "nincs megadva" : sor.City.Irsz;
             }
         }
 
