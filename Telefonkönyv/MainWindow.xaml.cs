@@ -71,17 +71,33 @@ namespace Telefonkönyv
 
         private void LoginMenuButton_Click(object sender, RoutedEventArgs e)
         {
-            LoginWindow loginWindow = new LoginWindow(_context);
-            loginWindow.ShowDialog();
-            Felhasználó = (string)Application.Current.Properties["FelhasznaloNev"];
-            MessageBox.Show(Felhasználó);
+            if (Felhasználó != null)
+            {
+                MessageBox.Show("Már be vagy jelentkezve.");
+                return;
+            }
+            else
+            {
+                LoginWindow loginWindow = new LoginWindow(_context);
+                loginWindow.ShowDialog();
+                Felhasználó = (string)Application.Current.Properties["FelhasznaloNev"];
+            }
+            
         }
         private void RegistrationMenuButton_Click(object sender, RoutedEventArgs e)
         {
-            RegistrationWindow regWindow = new RegistrationWindow(_context);
-            regWindow.ShowDialog();
-            Felhasználó = (string)Application.Current.Properties["FelhasznaloNev"];
-            MessageBox.Show(Felhasználó);
+            if (Felhasználó != null)
+            {
+                MessageBox.Show("Már be vagy jelentkezve.");
+                return;
+            }
+            else
+            {
+                RegistrationWindow regWindow = new RegistrationWindow(_context);
+                regWindow.ShowDialog();
+                Felhasználó = (string)Application.Current.Properties["FelhasznaloNev"];
+            }
+            
         }
 
 
@@ -191,6 +207,17 @@ namespace Telefonkönyv
             else MessageBox.Show("Csak bejelentkezett felhasználók módosíthatnak bejegyzéseket.");
 
             
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            if (Felhasználó != null) {
+                Application.Current.Properties["FelhasznaloNev"] = null;
+            }
+            else
+            {
+                MessageBox.Show("Nincs bejelentkezve felhasználó.");
+            }
         }
     }
 }

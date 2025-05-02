@@ -7,7 +7,6 @@ namespace Telefonkönyv
     public partial class RegistrationWindow : Window
     {
         private readonly MyDbContext _context;
-        string nev = (string)Application.Current.Properties["FelhasznaloNev"];
         public RegistrationWindow(MyDbContext context)
         {
             InitializeComponent();
