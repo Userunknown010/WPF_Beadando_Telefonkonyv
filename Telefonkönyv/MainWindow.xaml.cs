@@ -86,7 +86,7 @@ namespace Telefonkönyv
                 loginWindow.ShowDialog();
                 Felhasználó = (string)Application.Current.Properties["FelhasznaloNev"];
             }
-            
+
         }
         private void RegistrationMenuButton_Click(object sender, RoutedEventArgs e)
         {
@@ -101,7 +101,7 @@ namespace Telefonkönyv
                 regWindow.ShowDialog();
                 Felhasználó = (string)Application.Current.Properties["FelhasznaloNev"];
             }
-            
+
         }
 
 
@@ -123,7 +123,6 @@ namespace Telefonkönyv
         private void PhoneBookList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var selected = PhoneBookList.SelectedItem as Contact; // Az objektum a LINQ lekérdezésből származik
-            var city = _context.Citys.FirstOrDefault(x => x.CityId == selected.CityId);
             if (selected != null)
             {
                 if (selected.PictureId.HasValue)
@@ -139,7 +138,7 @@ namespace Telefonkönyv
                 sideEmail.Text = string.IsNullOrEmpty(selected.Email) ? "nincs megadva" : selected.Email;
                 sidedesc.Text = string.IsNullOrEmpty(selected.Note) ? "nincs megadva" : selected.Note;
                 sideNickname.Text = string.IsNullOrEmpty(selected.Nickname) ? "nincs megadva" : selected.Nickname;
-                
+
                 sideCity.Text = selected.City.CityName.ToString();
                 sideName.Text = selected.Name;
                 sideTel.Text = selected.PhoneNumber;
@@ -149,42 +148,46 @@ namespace Telefonkönyv
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            if(Felhasználó != null)
+            if (Felhasználó != null)
             {
                 teljesFelvétel teljesFelvételWindow = new teljesFelvétel(Felhasználó);
                 teljesFelvételWindow.ShowDialog();
                 LoadPhoneBookEntries();
-            }else
+            }
+            else
             {
                 MessageBox.Show("Csak bejelentkezett felhasználók adhatnak hozzá új bejegyzést.");
             }
-            
+
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
 
-            if(Felhasználó != null)
+            if (Felhasználó != null)
             {
                 var perm = _context.Users
                     .Where(x => x.Username == Felhasználó)
                     .Select(x => x.Permission.PermissionName).First();
                 if (perm == "editor" || perm == "admin")
                 {
-                    var selected = PhoneBookList.SelectedItem as dynamic;
+                    var selected = PhoneBookList.SelectedItem as Contact;
                     if (selected != null)
                     {
                         MódósításWindow módósításWindow = new MódósításWindow(selected);
                         módósításWindow.ShowDialog();
+                        PhoneBookList.SelectedItem = null;
+                        LoadPhoneBookEntries();
                     }
                     else MessageBox.Show("Kérlek válassz ki egy bejegyzést a módosításhoz.");
                 }
                 else MessageBox.Show("nincs ehhez jogosultságod");
-                
+
             }
             else MessageBox.Show("Csak bejelentkezett felhasználók módosíthatnak bejegyzéseket.");
 
-            }
+
+        }
 
         private void Törlés_Click(object sender, RoutedEventArgs e)
         {
