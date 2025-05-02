@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Text;
+using System.Windows;
 using Telefonkönyv.Models;
 
 namespace Telefonkönyv
@@ -52,7 +53,7 @@ namespace Telefonkönyv
                 var permissionID = _context.Permissions.FirstOrDefault(x => x.PermissionName == permissionbox.Text).PermissionId;
                 var newUser = new User
                 {
-                    Password = password,
+                    Password = Encoding.Unicode.GetBytes(password),
                     Username = username,
                     PermissionId = permissionID
                 };
