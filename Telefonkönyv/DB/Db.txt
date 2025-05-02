@@ -59,13 +59,6 @@ CREATE TABLE logs (
     timestamp DATETIME DEFAULT GETDATE()
 );
 
--- Alap felhasználók beszúrása (jelszavak: admin, editor, guest)
-INSERT INTO [user] (username, password, permission_id)
-VALUES
-    ('admin', 0x610064006d0069006e00, 1),
-    ('editor', 0x65006400690074006f007200, 2),
-    ('guest', 0x67007500650073007400, 3);
-
 -- jogosultságok
 
 INSERT INTO Permissions (permission_name) VALUES
@@ -73,6 +66,13 @@ INSERT INTO Permissions (permission_name) VALUES
 ('editor'),
 ('viewer');
 
+-- Alap felhasználók beszúrása (jelszavak: admin, editor, guest)
+
+INSERT INTO [user] (username, password, permission_id)
+VALUES
+    ('admin', 0x610064006d0069006e00, 1),
+    ('editor', 0x65006400690074006f007200, 2),
+    ('guest', 0x67007500650073007400, 3);
 INSERT INTO Citys (Irsz , City_name)
 VALUES
 ('8128', 'Aba'),
