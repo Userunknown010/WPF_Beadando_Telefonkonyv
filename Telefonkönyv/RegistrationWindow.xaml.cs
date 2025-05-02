@@ -56,6 +56,19 @@ namespace Telefonkönyv
                 };
                 _context.Users.Add(newUser);
                 _context.SaveChanges();
+
+
+                var NewLog = new Log
+                {
+                    UserId = newUser.Id,
+                    Operation = "Regisztráció - "+newUser.Username,
+                    Timestamp = DateTime.Now
+                };
+
+                _context.Logs.Add(NewLog);
+                _context.SaveChanges();
+
+
                 MessageBox.Show(permissionID.ToString());
                 MessageBox.Show($"Sikeres regisztráció: {username}");
                 Application.Current.Properties["FelhasznaloNev"] = username;
