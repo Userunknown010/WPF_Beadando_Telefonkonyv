@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -99,6 +100,19 @@ namespace Telefonkönyv
 
                 context.Contacts.Add(contact);
                 context.SaveChanges();
+
+
+                var NewLog = new Log
+                {
+                    UserId = contact.Id,
+                    Operation = "Új kontakt - " + contact.Name,
+                    Timestamp = DateTime.Now
+                };
+
+                context.Logs.Add(NewLog);
+                context.SaveChanges();
+
+
             }
 
             MessageBox.Show("Kapcsolat sikeresen hozzáadva.");
