@@ -1,12 +1,32 @@
 ﻿using System.Windows;
+using Telefonkönyv.Models;
 
 namespace Telefonkönyv
 {
     public partial class RegistrationWindow : Window
     {
-        public RegistrationWindow()
+        private readonly MyDbContext _context;
+        public RegistrationWindow(MyDbContext context)
         {
             InitializeComponent();
+
+            _context = context;
+            Dropdown();
+            
+        }
+
+        private void Dropdown() {
+            var perm = _context.Permissions.Where(x => x.PermissionName != "admin").Select(x => x.PermissionName).ToList();
+            if (perm.Count == 0)
+            {
+                permissionbox.Text = "Nem elérhető";
+                permissionbox.IsEnabled = false;
+            }
+            else
+            {
+                permissionbox.ItemsSource = perm;
+                permissionbox.SelectedIndex = 1;
+            }
         }
 
         private void RegisterButton_Click(object sender, RoutedEventArgs e)
@@ -14,14 +34,36 @@ namespace Telefonkönyv
             string username = UsernameTextBox.Text;
             string password = PasswordBox.Password;
             string confirmPassword = PasswordBoxConfirm.Password;
+            var users = _context.Users.Select(x=>x.Username).ToList();
 
-            if (password != confirmPassword)
-            {
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password) || string.IsNullOrEmpty(confirmPassword)){
+                MessageBox.Show("Kérjük, töltse ki az összes mezőt!");
+                return;
+            }
+            else if (users.Contains(username)){
+                MessageBox.Show("Ez a felhasználónév már létezik!");
+                return;
+            }
+            else if (password != confirmPassword){
                 MessageBox.Show("A két jelszó nem egyezik!");
                 return;
             }
+            else {
+                var permissionID = _context.Permissions.FirstOrDefault(x => x.PermissionName == permissionbox.Text).PermissionId;
+                var newUser = new User
+                {
+                    Username = username,
+                    Password = password,
+                    PermissionId = permissionID
+                };
+                _context.Users.Add(newUser);
 
-            MessageBox.Show($"Sikeres regisztráció: {username}");
+                MessageBox.Show(permissionID.ToString());
+                MessageBox.Show($"Sikeres regisztráció: {username}");
+            }
+
+
+                
 
             this.Close();
         }

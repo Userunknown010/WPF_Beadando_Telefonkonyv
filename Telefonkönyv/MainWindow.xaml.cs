@@ -18,11 +18,6 @@ namespace Telefonkönyv
             _context = context;
             TestDatabaseConnection();
             LoadPhoneBookEntries();
-
-            var cityList = _context.Citys
-                .Select(c => new { c.CityId, c.CityName }).First();
-            MessageBox.Show(cityList.CityName);
-
         }
 
         private void TestDatabaseConnection()
@@ -30,7 +25,7 @@ namespace Telefonkönyv
             try
             {
                 var testQuery = _context.Contacts.FirstOrDefault();
-                MessageBox.Show(testQuery != null ? "Adatbázis kapcsolat sikeres!" : "Nincs adat az adatbázisban.");
+                MessageBox.Show("Adatbázis kapcsolat sikeres!");
             }
             catch (Exception ex)
             {
@@ -82,7 +77,7 @@ namespace Telefonkönyv
         }
         private void RegistrationMenuButton_Click(object sender, RoutedEventArgs e)
         {
-            RegistrationWindow regWindow = new RegistrationWindow();
+            RegistrationWindow regWindow = new RegistrationWindow(_context);
             regWindow.ShowDialog();
         }
 

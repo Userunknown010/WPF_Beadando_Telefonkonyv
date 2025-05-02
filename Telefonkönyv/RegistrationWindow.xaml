@@ -8,10 +8,11 @@
             <ColumnDefinition Width="270"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
         </Grid.RowDefinitions>
 
         <Label Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Felhasználónév:"/>
@@ -23,6 +24,10 @@
         <Label Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Jelszó újra:"/>
         <PasswordBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="PasswordBoxConfirm" Width="200"/>
 
-        <Button Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Content="Regisztráció" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Padding="5" Margin="0,10,0,0"  Click="RegisterButton_Click"/>
+        <Label Grid.Column="0" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Engedélyek: "/>
+        <ComboBox x:Name="permissionbox" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,7,0,0" Grid.Row="3" Width="200" />
+
+        <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Content="Regisztráció" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Padding="5" Margin="0,10,0,0"  Click="RegisterButton_Click"/>
+
     </Grid>
 </Window>
