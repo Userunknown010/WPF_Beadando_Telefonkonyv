@@ -80,7 +80,17 @@ namespace Telefonkönyv
 
             _context.Contacts.Add(contact);
             _context.SaveChanges();
-        
+
+            var NewLog = new Log
+            {
+                UserId = contact.Id,
+                Operation = "Új kontakt - " + contact.Name,
+                Timestamp = DateTime.Now
+            };
+
+            _context.Logs.Add(NewLog);
+            _context.SaveChanges();
+
         }
 
         private void Elvetgomb_Click(object sender, RoutedEventArgs e)
