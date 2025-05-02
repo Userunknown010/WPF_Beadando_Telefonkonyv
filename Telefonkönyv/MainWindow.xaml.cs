@@ -204,6 +204,16 @@ namespace Telefonkönyv
                     {
                         selected.IsActive = false;
                         _context.SaveChanges();
+
+                        var newLog = new Log
+                        {
+                            UserId = selected.Id,
+                            Operation = "Törlés - " + selected.Name,
+                            Timestamp = DateTime.Now
+                        };
+                        _context.Logs.Add(newLog);
+                        _context.SaveChanges();
+
                         LoadPhoneBookEntries();
                     }
                     else MessageBox.Show("Kérlek válassz ki egy bejegyzést a törléshez.");
@@ -221,6 +231,17 @@ namespace Telefonkönyv
             if (Felhasználó != null)
             {
                 Application.Current.Properties["FelhasznaloNev"] = null;
+
+                var newLog = new Log
+                {
+                    UserId = _context.Users.Where(x => x.Username == Felhasználó).Select(x => x.Id).First(),
+                    Operation = "Kijelentkezés - " + Felhasználó,
+                    Timestamp = DateTime.Now
+                };
+                _context.Logs.Add(newLog);
+                _context.SaveChanges();
+
+
                 Felhasználó = (string)Application.Current.Properties["FelhasznaloNev"];
                 MessageBox.Show("Sikeres kijelentkezés.");
             }
