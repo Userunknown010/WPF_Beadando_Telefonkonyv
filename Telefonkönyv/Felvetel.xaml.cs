@@ -81,9 +81,11 @@ namespace Telefonkönyv
             _context.Contacts.Add(contact);
             _context.SaveChanges();
 
+            var userId = _context.Users.Where(x => x.Username == Felhasználó).Select(x => x.Id).First();
+
             var NewLog = new Log
             {
-                UserId = contact.Id,
+                UserId = userId,
                 Operation = "Új kontakt - " + contact.Name,
                 Timestamp = DateTime.Now
             };
