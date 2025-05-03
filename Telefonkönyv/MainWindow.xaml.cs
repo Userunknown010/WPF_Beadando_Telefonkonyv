@@ -25,6 +25,7 @@ namespace Telefonkönyv
             Felhasználó = null;
         }
 
+
         private void TestDatabaseConnection()
         {
             try
@@ -54,8 +55,34 @@ namespace Telefonkönyv
 
 
 
+
         private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            string searchText = SearchBox.Text.ToLower();
+
+            if (string.IsNullOrWhiteSpace(searchText))
+            {
+                LoadPhoneBookEntries();
+            }
+            else if (searchText == "keresés")
+            {
+                return;
+            }
+            else
+            {
+                var filteredContacts = _context.Contacts
+                    .Include(c => c.City)
+                    .Include(c => c.Picture)
+                    .Where(c => c.IsActive &&
+                                (c.Name.ToLower().Contains(searchText) ||
+                                 c.City.CityName.ToLower().Contains(searchText) ||
+                                 c.PhoneNumber.ToLower().Contains(searchText)))
+                    .OrderBy(c => c.Name) // Rendezés név szerint
+                    .ToList();
+
+                PhoneBookList.ItemsSource = filteredContacts;
+
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
