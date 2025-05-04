@@ -24,10 +24,13 @@ namespace Telefonkönyv
     public partial class MódósításWindow : Window
     {
         private Contact _contact;
-        public MódósításWindow(Contact contact)
+        private MyDbContext _context;
+        private string Felhasználó = (string)Application.Current.Properties["FelhasznaloNev"];
+        public MódósításWindow(Contact contact, MyDbContext context)
         {
             InitializeComponent();
             _contact = contact;
+            _context = context;
             nevbe.Text = _contact.Name;
             becenevbe.Text = _contact.Nickname;
             telefonszambe.Text = _contact.PhoneNumber;
@@ -80,9 +83,12 @@ namespace Telefonkönyv
                     contact.CityId = cityid;
                     context.SaveChanges();
 
+
+                    var user = _context.Users.Where(X => X.Username == Felhasználó).Select(x => x.Id).First();
+
                     var newLog = new Log
                     {
-                        UserId = contact.Id,
+                        UserId = user,
                         Operation = "Módosítás - " + contact.Name,
                         Timestamp = DateTime.Now
                     };

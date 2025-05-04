@@ -69,7 +69,6 @@ namespace Telefonkönyv
                 _context.SaveChanges();
 
 
-                MessageBox.Show(permissionID.ToString());
                 MessageBox.Show($"Sikeres regisztráció: {username}");
                 Application.Current.Properties["FelhasznaloNev"] = username;
             }

@@ -201,7 +201,7 @@ namespace Telefonkönyv
                     var selected = PhoneBookList.SelectedItem as Contact;
                     if (selected != null)
                     {
-                        MódósításWindow módósításWindow = new MódósításWindow(selected);
+                        MódósításWindow módósításWindow = new MódósításWindow(selected, _context);
                         módósításWindow.ShowDialog();
                         PhoneBookList.SelectedItem = null;
                         LoadPhoneBookEntries();
@@ -248,7 +248,7 @@ namespace Telefonkönyv
                 else MessageBox.Show("nincs ehhez jogosultságod");
 
             }
-            else MessageBox.Show("Csak bejelentkezett felhasználók módosíthatnak bejegyzéseket.");
+            else MessageBox.Show("Csak bejelentkezett felhasználók törölhetnek bejegyzéseket.");
 
 
         }
