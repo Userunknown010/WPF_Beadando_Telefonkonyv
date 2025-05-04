@@ -101,10 +101,13 @@ namespace Telefonkönyv
                 context.Contacts.Add(contact);
                 context.SaveChanges();
 
-
+                var user = context.Users
+                    .Where(x => x.Username == Felhasználó)
+                    .Select(x => x.Id)
+                    .FirstOrDefault();
                 var NewLog = new Log
                 {
-                    UserId = contact.Id,
+                    UserId = user,
                     Operation = "Új kontakt - " + contact.Name,
                     Timestamp = DateTime.Now
                 };
