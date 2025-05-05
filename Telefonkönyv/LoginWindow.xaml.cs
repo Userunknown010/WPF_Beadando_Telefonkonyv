@@ -1,3 +1,4 @@
+using System.Text;
 using System.Windows;
 using Telefonkönyv.Models;
 
@@ -18,7 +19,7 @@ namespace Telefonkönyv
             string username = UsernameTextBox.Text;
             string password = pwdPasswordBox.Password;
 
-            var users = _context.Users.Select(x=>x.Username).ToList();
+            var users = _context.Users.Where(x=>x.Password == Encoding.Unicode.GetBytes(password)).Select(x=>x.Username).ToList();
 
             if (users.Contains(username))
             {
@@ -33,7 +34,7 @@ namespace Telefonkönyv
                 _context.Logs.Add(newLog);
                 _context.SaveChanges();
             }
-            else MessageBox.Show("Ez a felhasználónév nem létezik!");
+            else MessageBox.Show("Ez a felhasználónév és jelszó páros nem létezik!");
             
             this.Close();
         }
