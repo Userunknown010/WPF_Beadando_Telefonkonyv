@@ -231,17 +231,26 @@ namespace Telefonkönyv
 
                     if (selected != null)
                     {
-                        contactToDelete.IsActive = false;
-                        _context.SaveChanges();
-                        var newLog = new Log
+                        var result = MessageBox.Show("Biztosan törölni szeretnéd a kiválasztott bejegyzést?", "Törlés megerősítése", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                        if (result == MessageBoxResult.Yes)
                         {
-                            UserId = _context.Users.Where(x => x.Username == Felhasználó).Select(x => x.Id).First(),
-                            Operation = "Törlés - " + selected.Name,
-                            Timestamp = DateTime.Now
-                        };
+                            contactToDelete.IsActive = false;
+                            _context.SaveChanges();
+                            var newLog = new Log
+                            {
+                                UserId = _context.Users.Where(x => x.Username == Felhasználó).Select(x => x.Id).First(),
+                                Operation = "Törlés - " + selected.Name,
+                                Timestamp = DateTime.Now
+                            };
 
-                        _context.Logs.Add(newLog);
-                        LoadPhoneBookEntries();
+                            _context.Logs.Add(newLog);
+                            LoadPhoneBookEntries();
+                            MessageBox.Show("Sikeres törlés.");
+                        }
+                        else {
+                        MessageBox.Show("Törlés megszakítva.");
+                        }
+                        
                     }
                     else MessageBox.Show("Kérlek válassz ki egy bejegyzést a törléshez.");
                 }

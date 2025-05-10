@@ -51,8 +51,7 @@ namespace Telefonkönyv
             else
             {
                 AddContact();
-                MessageBox.Show("Sikeres mentés!");
-                this.Close();
+                
             }
         }
 
@@ -83,42 +82,53 @@ namespace Telefonkönyv
                     .Select(x => x.CityId)
                     .FirstOrDefault();
 
-                var uploader = context.Users.Where(x=>x.Username == Felhasználó).Select(x => x.Id).First();
-
-                var contact = new Contact
+                if (cityid == 0)
                 {
-                    Name = nevbe.Text,
-                    PhoneNumber = telefonszambe.Text,
-                    Email = emailbe.Text,
-                    Nickname = becenevbe.Text,
-                    Note = megjegyzesbe.Text,
-                    CityId = cityid,
-                    UploaderId = uploader,
-                    PictureId = pictureId,
-                    IsActive = true
-                };
+                    MessageBox.Show("Ilyen város nem létezik");
+                }
+                else {
+                    var uploader = context.Users.Where(x => x.Username == Felhasználó).Select(x => x.Id).First();
 
-                context.Contacts.Add(contact);
-                context.SaveChanges();
+                    var contact = new Contact
+                    {
+                        Name = nevbe.Text,
+                        PhoneNumber = telefonszambe.Text,
+                        Email = emailbe.Text,
+                        Nickname = becenevbe.Text,
+                        Note = megjegyzesbe.Text,
+                        CityId = cityid,
+                        UploaderId = uploader,
+                        PictureId = pictureId,
+                        IsActive = true
+                    };
 
-                var user = context.Users
-                    .Where(x => x.Username == Felhasználó)
-                    .Select(x => x.Id)
-                    .FirstOrDefault();
-                var NewLog = new Log
-                {
-                    UserId = user,
-                    Operation = "Új kontakt - " + contact.Name,
-                    Timestamp = DateTime.Now
-                };
+                    context.Contacts.Add(contact);
+                    context.SaveChanges();
 
-                context.Logs.Add(NewLog);
-                context.SaveChanges();
+                    var user = context.Users
+                        .Where(x => x.Username == Felhasználó)
+                        .Select(x => x.Id)
+                        .FirstOrDefault();
+                    var NewLog = new Log
+                    {
+                        UserId = user,
+                        Operation = "Új kontakt - " + contact.Name,
+                        Timestamp = DateTime.Now
+                    };
+
+                    context.Logs.Add(NewLog);
+                    context.SaveChanges();
+
+                    MessageBox.Show("Sikeres mentés!");
+                    this.Close();
+                }
+
+                    
 
 
             }
 
-            MessageBox.Show("Kapcsolat sikeresen hozzáadva.");
+            
         }
 
         private void UploadPicture_Click(object sender, RoutedEventArgs e)

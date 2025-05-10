@@ -52,8 +52,6 @@ namespace Telefonkönyv
             else
             {
                 addContact();
-                MessageBox.Show("Sikeres mentés!");
-                this.Close();
             }
         }
 
@@ -64,34 +62,43 @@ namespace Telefonkönyv
                    .Select(x => x.CityId)
                    .FirstOrDefault();
 
-            var uploader = _context.Users.Where(x => x.Username == Felhasználó).Select(x => x.Id).First();
-
-            var contact = new Contact
+            if (cityid == 0)
             {
-                Name = nevbe.Text,
-                PhoneNumber = telefonszambe.Text,
-                Email = null,
-                Nickname = null,
-                Note = null,
-                CityId = cityid,
-                UploaderId = uploader,
-                IsActive = true
-            };
+                MessageBox.Show("Ilyen város nem létezik");
+            }
+            else {
+                var uploader = _context.Users.Where(x => x.Username == Felhasználó).Select(x => x.Id).First();
 
-            _context.Contacts.Add(contact);
-            _context.SaveChanges();
+                var contact = new Contact
+                {
+                    Name = nevbe.Text,
+                    PhoneNumber = telefonszambe.Text,
+                    Email = null,
+                    Nickname = null,
+                    Note = null,
+                    CityId = cityid,
+                    UploaderId = uploader,
+                    IsActive = true
+                };
 
-            var userId = _context.Users.Where(x => x.Username == Felhasználó).Select(x => x.Id).First();
+                _context.Contacts.Add(contact);
+                _context.SaveChanges();
 
-            var NewLog = new Log
-            {
-                UserId = userId,
-                Operation = "Új kontakt - " + contact.Name,
-                Timestamp = DateTime.Now
-            };
+                var userId = _context.Users.Where(x => x.Username == Felhasználó).Select(x => x.Id).First();
 
-            _context.Logs.Add(NewLog);
-            _context.SaveChanges();
+                var NewLog = new Log
+                {
+                    UserId = userId,
+                    Operation = "Új kontakt - " + contact.Name,
+                    Timestamp = DateTime.Now
+                };
+
+                _context.Logs.Add(NewLog);
+                _context.SaveChanges();
+
+                MessageBox.Show("Sikeres mentés!");
+                this.Close();
+            }
 
         }
 
